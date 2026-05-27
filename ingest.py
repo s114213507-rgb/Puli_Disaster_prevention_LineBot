@@ -19,7 +19,7 @@ QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
 COLLECTION = os.getenv("QDRANT_COLLECTION", "disaster_rules")
 
 # Embedding 模型：中文專用，512 維，最大 512 tokens
-EMBED_MODEL_NAME = os.getenv("EMBED_MODEL", "BAAI/bge-small-zh-v1.5")
+EMBED_MODEL_NAME = os.getenv("EMBED_MODEL", "")
 EMBED_DIM = 512
 
 # Chunking 參數
