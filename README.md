@@ -7,7 +7,9 @@
 ## 👉 加入 LINE Bot 可直接檢視成果
 
 本系統已實際上線運作。歡迎直接透過 LINE 體驗「虛擬里長」的防災問答與避難協調功能：
+
 https://lin.ee/Zz0NFWn
+<img width="540" height="540" alt="L_gainfriends_2dbarcodes_GW" src="https://github.com/user-attachments/assets/19f3ab36-1209-4015-97b3-da9202d314f1" />
 
 **LINE 官方帳號：噗哩揪安心**
 
