@@ -356,4 +356,4 @@ Puli_Disaster_prevention_LineBot/
 
 ## 👥 作者
 
-國立暨南國際大學 資訊管理學系
+國立暨南國際大學 資訊管理學系 蔡秉霖
