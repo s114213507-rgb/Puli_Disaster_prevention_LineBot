@@ -1,0 +1,20 @@
+# ── 核心 ──
+flask
+python-dotenv
+requests
+tqdm
+
+# ── LINE Bot ──
+line-bot-sdk
+
+# ── Embedding（中文模型）──
+sentence-transformers
+
+# ── 向量資料庫 ──
+qdrant-client
+
+# ── PDF 解析（方案一：Docling，推薦）──
+docling
+
+# ── PDF 解析（備用方案：pdfplumber）──
+pdfplumber
