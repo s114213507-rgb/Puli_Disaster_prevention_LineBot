@@ -142,7 +142,7 @@ docker run -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant
 
 ### 步驟 5：設定環境變數
 
-複製 `.env.example` 為 `.env` 並填入你的設定（見下方說明）。
+將 `setting.txt` 存為 `.env` 並填入你的設定（見下方說明）。
 
 ### 步驟 6：準備知識庫
 
@@ -312,7 +312,7 @@ Puli_Disaster_prevention_LineBot/
 ├── shelter_map.py        # 避難所地圖（Leaflet.js）
 ├── news_fetcher.py       # 即時災情爬取
 ├── requirements.txt
-├── .env.example
+├── setting.txt
 └── static/
     ├── pdf/              # 原始 PDF（受保密協議，不隨專案釋出）
     └── images/          # 流程圖、組織圖截圖（不隨專案釋出）
