@@ -1,6 +1,18 @@
 # 🛡️ 噗哩揪安心 — 社區防災虛擬里長
 
-> 一套以檢索增強生成（RAG）技術打造的社區防災問答與避難協調系統，將沉睡於官方文件中的防災知識，轉化為居民用 LINE 即可隨時對話、附來源可查證的「虛擬里長」。以南投縣埔里鎮為實作場域。
+> 一套以檢索增強生成（RAG）技術打造的社區防災問答與避難協調系統，將沉睡於官方文件中的防災知識，轉化為居民用 LINE 即可隨時對話、且附來源可查證的「虛擬里長」。實作場域為南投縣埔里鎮。
+
+---
+
+## 👉 加入 LINE Bot 可直接檢視成果
+
+本系統已實際上線運作。歡迎直接透過 LINE 體驗「虛擬里長」的防災問答與避難協調功能：
+
+**LINE 官方帳號：噗哩揪安心**
+
+> 加入後，直接以自然語言提問防災問題（例如「颱風幾級會開設應變中心？」），或輸入關鍵字使用避難所地圖、線上報到、即時災情等功能。
+
+> ⚠️ **關於知識庫文件**：本系統的知識庫建構於南投縣埔里鎮公所及慈恩社區發展協會提供之防災文件，因涉及在地居民個資與內部編組資料，受保密協議規範，**原始 PDF 文件與切割後的知識庫（chunks）不隨本專案釋出**。本儲存庫提供完整的系統原始碼與建置方法，使用者可替換為自己社區的文件來建立專屬知識庫。
 
 ---
 
@@ -42,7 +54,7 @@
         ┌───────────────────────────────┐
         │      Flask App (model.py)      │
         │  ┌──────────┬───────────────┐  │
-        │  │ 關鍵字攔截 │   RAG 問答   │  │
+        │  │ 關鍵字攔截│   RAG 問答    │  │
         │  └────┬─────┴───────┬───────┘  │
         │       │             │           │
         │  ┌────▼────┐  ┌─────▼──────┐    │
@@ -132,14 +144,13 @@ docker run -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant
 
 複製 `.env.example` 為 `.env` 並填入你的設定（見下方說明）。
 
-### 步驟 6：匯入知識庫
+### 步驟 6：準備知識庫
+
+> 📌 本專案不含受保密協議規範的原始 PDF 與知識庫檔案。請將你自己社區的防災文件放入 `static/pdf/`，並以 `ingest.py` 進行解析切割，產生 chunks JSON 後再匯入。
 
 ```bash
-# 匯入防災手冊 chunks（首次用 --recreate 重建）
-python import_chunks.py --json manual_chunks.json --recreate
-
-# 追加社區志工文件 chunks（不加 --recreate，追加至同一 collection）
-python import_chunks.py --json community_chunks.json
+# 將切割好的 chunks 匯入 Qdrant（首次用 --recreate 重建）
+python import_chunks.py --json your_chunks.json --recreate
 ```
 
 ### 步驟 7：啟動主程式
@@ -256,7 +267,7 @@ print(result["images"])      # 自動配對的相關圖片
     "text": "東門里的里長是江茂圳，電話是 0921-787347。",
     "citations": [
         {
-            "title": "31522_南投縣埔里鎮災害應變中心作業手冊(114.5.5修訂).pdf",
+            "title": "災害應變中心作業手冊.pdf",
             "page": 24,
             "section": "四、開設程序 > 附件 > 災情查報人員聯絡名冊",
             "url": "https://bot.your-domain.org/static/pdf/...#page=24"
@@ -291,7 +302,7 @@ curl -X POST https://bot.your-domain.org/admin/shelter/status \
 ## 📁 專案結構
 
 ```
-puli-disaster-bot/
+Puli_Disaster_prevention_LineBot/
 ├── model.py              # LINE Bot 主程式（Flask）
 ├── rag_core.py           # RAG 核心：檢索 + 生成 + 引用
 ├── ingest.py             # PDF 解析與 chunking
@@ -300,14 +311,14 @@ puli-disaster-bot/
 ├── shelter_routes.py     # 登記表單 + 管理後台
 ├── shelter_map.py        # 避難所地圖（Leaflet.js）
 ├── news_fetcher.py       # 即時災情爬取
-├── manual_chunks.json    # 防災手冊知識庫
-├── community_chunks.json # 社區志工文件知識庫
 ├── requirements.txt
 ├── .env.example
 └── static/
-    ├── pdf/              # 原始 PDF（供引用跳頁）
-    └── images/           # 流程圖、組織圖截圖
+    ├── pdf/              # 原始 PDF（受保密協議，不隨專案釋出）
+    └── images/          # 流程圖、組織圖截圖（不隨專案釋出）
 ```
+
+> 📌 `static/pdf/`、`static/images/` 及知識庫 chunks（`*.json`）因涉及保密協議與個資，不包含於本儲存庫中。
 
 ---
 
@@ -334,9 +345,9 @@ puli-disaster-bot/
 
 ---
 
-## 📄 授權
+## 📄 授權與聲明
 
-本專案為學術研究與社會實踐用途。知識庫文件來源為埔里鎮公所及慈恩社區發展協會公開頒布之防災文件。
+本專案為大學社會實踐與公民科技防災之研究成果。系統原始碼開放供技術交流與學術參考；惟知識庫之原始文件來源（埔里鎮公所及慈恩社區發展協會防災文件）受保密協議規範，不對外公開。
 
 ---
 
