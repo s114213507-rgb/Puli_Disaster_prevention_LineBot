@@ -2,7 +2,7 @@ import os
 import logging
 from flask import Flask, request
 from dotenv import load_dotenv
-
+ 
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
@@ -12,35 +12,46 @@ from linebot.models import (
     ImageSendMessage,
     FlexSendMessage,
 )
-
+ 
 from rag_core import rag_answer
 from news_fetcher import get_latest_disaster_info
-
+ 
 load_dotenv()
-
+ 
 # ──────────────────────────────────────
-# LINE Bot 憑證（建議放 .env，不要硬編碼）
+# LINE Bot 憑證（一律從 .env 讀取，不在程式碼中保留任何機密）
 # ──────────────────────────────────────
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv(
-    "LINE_CHANNEL_ACCESS_TOKEN",
-)
-LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
-
-BASE_URL = os.getenv(
-    "BASE_URL",
-    "https://bot.puli-rag.org",
-)
-
+LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", "")
+LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET", "")
+BASE_URL = os.getenv("BASE_URL", "")
+ 
 MAX_QUERY_LENGTH = int(os.getenv("MAX_QUERY_LENGTH", "500"))
-
+ 
+# ──────────────────────────────────────
+# 啟動前檢查：缺少必要設定就直接停止，避免帶著空憑證啟動
+# ──────────────────────────────────────
+_missing = []
+if not LINE_CHANNEL_ACCESS_TOKEN:
+    _missing.append("LINE_CHANNEL_ACCESS_TOKEN")
+if not LINE_CHANNEL_SECRET:
+    _missing.append("LINE_CHANNEL_SECRET")
+if not BASE_URL:
+    _missing.append("BASE_URL")
+ 
+if _missing:
+    raise SystemExit(
+        "❌ 缺少必要環境變數：" + "、".join(_missing) +
+        "\n請複製 .env.example 為 .env 並填入正確的值後再啟動。"
+    )
+ 
 # ──────────────────────────────────────
 # 初始化
 # ──────────────────────────────────────
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
-
+ 
 app = Flask(__name__, static_url_path="/static", static_folder="static")
-
+ 
 # 註冊避難所登記系統路由
 from shelter_routes import shelter_bp
 from shelter_map import map_bp
@@ -382,9 +393,6 @@ def home():
  
  
 if __name__ == "__main__":
-    if not LINE_CHANNEL_ACCESS_TOKEN or not LINE_CHANNEL_SECRET:
-        print("❌ 請先設定 LINE_CHANNEL_ACCESS_TOKEN / LINE_CHANNEL_SECRET")
-        raise SystemExit(1)
- 
+    # 憑證檢查已於載入時完成（見檔案上方），此處直接啟動
     port = int(os.getenv("PORT", "5000"))
     app.run(host="0.0.0.0", port=port)
