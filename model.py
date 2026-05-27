@@ -23,9 +23,8 @@ load_dotenv()
 # ──────────────────────────────────────
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv(
     "LINE_CHANNEL_ACCESS_TOKEN",
-    "niGnXIGdVo1Z5uwGW4zrJTLHYjxV7lt/kzvGx8HYFw/v9FK1W5c3z8/KMczDOgWdOzpuYf1xoVU4a/H5ZTAKnYe0FfvXKNrx68ufyCfeOAbP5lG1698d0HRDAnX1ZDJnT9uyW8ZF0kVS3JQbq2OCCAdB04t89/1O/w1cDnyilFU=",
 )
-LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET", "72997d33eeb27cdab437feb9a17930f4")
+LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
 
 BASE_URL = os.getenv(
     "BASE_URL",
