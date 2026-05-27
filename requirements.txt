@@ -13,8 +13,3 @@ sentence-transformers
 # ── 向量資料庫 ──
 qdrant-client
 
-# ── PDF 解析（方案一：Docling，推薦）──
-docling
-
-# ── PDF 解析（備用方案：pdfplumber）──
-pdfplumber
