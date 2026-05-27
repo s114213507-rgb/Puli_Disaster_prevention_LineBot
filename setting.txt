@@ -1,0 +1,28 @@
+# LINE Bot
+LINE_CHANNEL_ACCESS_TOKEN=
+LINE_CHANNEL_SECRET=
+BASE_URL=
+
+# Qdrant
+QDRANT_HOST=localhost
+QDRANT_PORT=6333
+QDRANT_COLLECTION=disaster_rules
+
+# Embedding
+EMBED_MODEL=BAAI/bge-small-zh-v1.5
+
+# Chunking
+CHUNK_MAX_TOKENS=512
+CHUNK_OVERLAP=80
+
+# 搜尋
+RETRIEVE_K=12
+TOP_K=5
+
+# LLM
+LMSTUDIO_URL=http://localhost:1234/v1/chat/completions
+LMSTUDIO_MODEL=llama-breeze2-8b-instruct-text
+
+# 其他
+PORT=5000
+MAX_QUERY_LENGTH=500
