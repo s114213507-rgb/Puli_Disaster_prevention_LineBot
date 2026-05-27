@@ -19,7 +19,7 @@ log = logging.getLogger(__name__)
 QDRANT_HOST = os.getenv("QDRANT_HOST", "localhost")
 QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
 COLLECTION = os.getenv("QDRANT_COLLECTION", "disaster_rules")
-EMBED_MODEL = os.getenv("EMBED_MODEL", "BAAI/bge-small-zh-v1.5")
+EMBED_MODEL = os.getenv("EMBED_MODEL", "")
 PDF_URL = os.getenv("PDF_URL", "")  # 如果有公開 URL 就填
 
 def main():
