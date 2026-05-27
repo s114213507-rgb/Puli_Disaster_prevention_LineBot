@@ -21,11 +21,11 @@ QDRANT_HOST = os.getenv("QDRANT_HOST", "localhost")
 QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
 COLLECTION = os.getenv("QDRANT_COLLECTION", "disaster_rules")
 
-RETRIEVE_K = int(os.getenv("RETRIEVE_K", "8"))   # 先拉 8 筆
-TOP_K = int(os.getenv("TOP_K", "3"))              # 最終取 3 筆（配合 Breeze-7B 4096 context）
+RETRIEVE_K = int(os.getenv("RETRIEVE_K", ""))   # 先拉 8 筆
+TOP_K = int(os.getenv("TOP_K", ""))              # 最終取 3 筆（配合 Breeze-7B 4096 context）
 
-LMSTUDIO_URL = os.getenv("LMSTUDIO_URL", "http://localhost:1234/v1/chat/completions")
-LMSTUDIO_MODEL = os.getenv("LMSTUDIO_MODEL", "llama-breeze2-8b-instruct-text")
+LMSTUDIO_URL = os.getenv("LMSTUDIO_URL", "")
+LMSTUDIO_MODEL = os.getenv("LMSTUDIO_MODEL", "")
 
 # ──────────────────────────────────────
 # Embedding 模型（中文）
